@@ -15,7 +15,7 @@ connection.query('select * from student', function(err, rows, fields) {
   console.log(rows);
 });*/
 
-fs.readFile("temp2.txt", "utf-8", function(err, data) {
+fs.readFile("temp3.txt", "utf-8", function(err, data) {
 	if (err) throw err;
 	var result = "insert into novel(text) values";
 	console.log(data.length);
