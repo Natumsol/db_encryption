@@ -10,8 +10,10 @@ var m = 3307; // m = k * n / ln2,且m为素数
  * @return {number}
  */
 function hash(str, d) {
-	if (d > k - 1) return console.log("哈希函数参数错误!");
-
+	if (d > k - 1) {
+		console.log("哈希函数参数错误!");
+		return null;		
+	}
 	var hashStr = (parseInt("0x" + SHA1(str)).toString(2)).substr(d * 160 / k, 160 / k);
 	return parseInt(hashStr, 2);
 }
@@ -84,6 +86,7 @@ function generateStrMatrix(str) {
 	return matrix;
 
 }
+
 /**
  * @description 生成长度为m bit的序列
  * @param  {object} matrix 字符串信息矩阵
@@ -102,17 +105,22 @@ function string_transfer(matrix, m, k) {
 		for (var j = 0; j < b; j++) {
 			if (matrix[i][j] == 1) {
 				var flag = new Array(m);
-				for (var k = 0; k < flag.length; k++) {
-					flag[k] = false;//防冲突用的标志位初始化
+				for (var p = 0; p < flag.length; p++) {
+					flag[p] = false;//防冲突用的标志位初始化
 				}
 				for (var d = 0; d < k; d++) {//给比特串的特定位置置 1,共置 k 次
-					var index = hash()
+					var index = hash((i- 1) * b + j - 1 ,d) % m + 1;
+					while(flag[index] == true) index ++;
+					V[index] = 1;
+					flag[index] = true;
 				}
 			}
 		}
 	}
+	return V;
 }
 
 exports.convertChineseUnicode = convertChineseUnicode;
 exports.getUnicode = getUnicode;
 exports.generateStrMatrix = generateStrMatrix;
+exports.string_transfer = string_transfer;
