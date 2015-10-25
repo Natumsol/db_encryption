@@ -63,17 +63,17 @@ function generateStrMatrix(str) {
 		var b1 = strUnicodeParis[i + 1][0];
 		var b2 = strUnicodeParis[i + 1][1];
 
-			matrix[a1][a2] = 1;
-			matrix[a1][b1] = 1;
-			matrix[a1][b2] = 1;
+		matrix[a1][a2] = 1;
+		matrix[a1][b1] = 1;
+		matrix[a1][b2] = 1;
 		try {
 			matrix[a2][b1] = 1;
 		} catch (e) {
 			console.log(str);
 			throw e;
 		}
-			matrix[a2][b2] = 1;
-			matrix[b1][b2] = 1;
+		matrix[a2][b2] = 1;
+		matrix[b1][b2] = 1;
 
 	} // 填入邻接关系
 	matrix[256][strUnicodeParis[0][0]] = 1; // 头字节信息
@@ -84,10 +84,34 @@ function generateStrMatrix(str) {
 	return matrix;
 
 }
-
-function string_transfer(matrix, m, k){
-	
-} 
+/**
+ * @description 生成长度为m bit的序列
+ * @param  {object} matrix 字符串信息矩阵
+ * @param  {number} m      生成比特串的长度
+ * @param  {number} k      哈希函数的个数
+ * @return {string}        返回生成的M序列
+ */
+function string_transfer(matrix, m, k) {
+	var V = new Array(m);
+	var a = matrix.length;
+	var b = matrix[0].length;
+	for (var i = 0; i < V.length; i++) {
+		V[i] = 0;//初始化
+	}
+	for (var i = 0; i < a; i++) {
+		for (var j = 0; j < b; j++) {
+			if (matrix[i][j] == 1) {
+				var flag = new Array(m);
+				for (var k = 0; k < flag.length; k++) {
+					flag[k] = false;//防冲突用的标志位初始化
+				}
+				for (var d = 0; d < k; d++) {//给比特串的特定位置置 1,共置 k 次
+					var index = hash()
+				}
+			}
+		}
+	}
+}
 
 exports.convertChineseUnicode = convertChineseUnicode;
 exports.getUnicode = getUnicode;

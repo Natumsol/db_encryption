@@ -28,6 +28,7 @@ pool.getConnection(function (err, connection) {
     }
     console.log("所有字符串矩阵1的个数：" + count);
     console.log("1的平均个数" + count / rows.length);
+   
     connection.release();// 释放链接
   });
 });
