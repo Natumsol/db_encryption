@@ -1,37 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title><%= title %></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Loading Bootstrap -->
-    <link href="/css/vendor/bootstrap.min.css" rel="stylesheet">
+<head>
+  <meta charset="utf-8">
+  <title>
+    <%= title %>
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Loading Flat UI -->
-    <link href="/css/flat-ui.min.css" rel="stylesheet">
+  <!-- Loading Bootstrap -->
+  <link href="/css/vendor/bootstrap.min.css" rel="stylesheet">
 
-    <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- Loading Flat UI -->
+  <link href="/css/flat-ui.min.css" rel="stylesheet">
 
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
-    <!--[if lt IE 9]>
+  <link rel="shortcut icon" href="img/favicon.ico">
+
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+  <!--[if lt IE 9]>
       <script src="js/vendor/html5shiv.js"></script>
       <script src="js/vendor/respond.min.js"></script>
     <![endif]-->
-  </head>
-  <body>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1 class="text-center"><%= title %></h1>
+    <hr />
     
-    <div class="container">
-        <h1><%= title %></h1>
+    
+    <div>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#tab1" aria-controls="home" role="tab" data-toggle="tab">二次查询</a></li>
+    <li role="presentation"><a href="#tab2" aria-controls="profile" role="tab" data-toggle="tab">全表查询</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="tab1">...</div>
+    <div role="tabpanel" class="tab-pane" id="tab2">...</div>
+  </div>
+
+</div>
+
+
+    <div class="row">
+      <h4>1. 二次查询</h4>
+      <div class="col-lg-12">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="搜索">
+          <span class="input-group-btn">
+        <button class="btn btn-default" type="button">查询</button>
+      </span>
+        </div>
+        <!-- /input-group -->
+      </div>
     </div>
-    <!-- /.container -->
+    <!-- /.row -->
+    <div class="row">
+      <h4>1. 全表查询</h4>
+      <div class="col-lg-12">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="搜索">
+          <span class="input-group-btn">
+        <button class="btn btn-default" type="button">查询</button>
+      </span>
+        </div>
+        <!-- /input-group -->
+      </div>
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
 
 
-    <!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
-    <script src="/js/vendor/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="/js/vendor/video.js"></script>
-    <script src="/js/flat-ui.min.js"></script>
+  <!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
+  <script src="/js/vendor/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="/js/vendor/video.js"></script>
+  <script src="/js/flat-ui.min.js"></script>
 
-  </body>
+</body>
+
 </html>
