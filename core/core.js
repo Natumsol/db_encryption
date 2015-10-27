@@ -109,10 +109,12 @@ function string_transfer(matrix, m, k) {
 					flag[p] = false;//防冲突用的标志位初始化
 				}
 				for (var d = 0; d < k; d++) {//给比特串的特定位置置 1,共置 k 次
-					var index = hash((i- 1) * b + j - 1 ,d) % m + 1;
+					var index = hash(((i - 1) * b + j - 1) + "" ,d) % m + 1;
 					while(flag[index] == true) index ++;
-					V[index] = 1;
-					flag[index] = true;
+					if(index < m) {
+						V[index] = 1;
+						flag[index] = true;
+					}
 				}
 			}
 		}
@@ -124,3 +126,4 @@ exports.convertChineseUnicode = convertChineseUnicode;
 exports.getUnicode = getUnicode;
 exports.generateStrMatrix = generateStrMatrix;
 exports.string_transfer = string_transfer;
+exports.hash = hash;
