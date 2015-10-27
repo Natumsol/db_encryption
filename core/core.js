@@ -12,7 +12,7 @@ var m = 3307; // m = k * n / ln2,且m为素数
 function hash(str, d) {
 	if (d > k - 1) {
 		console.log("哈希函数参数错误!");
-		return null;		
+		return null;
 	}
 	var hashStr = (parseInt("0x" + SHA1(str)).toString(2)).substr(d * 160 / k, 160 / k);
 	return parseInt(hashStr, 2);
@@ -45,8 +45,7 @@ function convertChineseUnicode(str) {
  * @param  {string} str
  * @return {object}
  */
-function generateStrMatrix(str) {
-
+function generateStrMatrix(str, hasHead, hasTail) {
 	var matrix = new Array(260);
 	var strUnicodeParis = [];
 	for (var i = 0; i < 260; i++) {
@@ -78,10 +77,15 @@ function generateStrMatrix(str) {
 		matrix[b1][b2] = 1;
 
 	} // 填入邻接关系
-	matrix[256][strUnicodeParis[0][0]] = 1; // 头字节信息
-	matrix[257][strUnicodeParis[strUnicodeParis.length - 1][1]] = 1; // 尾字节信息
-	matrix[258][strUnicodeParis[0][1]] = 1; // 第二个字节信息
-	matrix[259][strUnicodeParis[strUnicodeParis.length - 1][0]] = 1; // 倒数第二个字节信息
+	if (hasHead) {
+		matrix[256][strUnicodeParis[0][0]] = 1; // 头字节信息
+		matrix[258][strUnicodeParis[0][1]] = 1; // 第二个字节信息
+	}
+
+	if (hasTail) {
+		matrix[257][strUnicodeParis[strUnicodeParis.length - 1][1]] = 1; // 尾字节信息
+		matrix[259][strUnicodeParis[strUnicodeParis.length - 1][0]] = 1; // 倒数第二个字节信息
+	}
 
 	return matrix;
 
@@ -109,9 +113,9 @@ function string_transfer(matrix, m, k) {
 					flag[p] = false;//防冲突用的标志位初始化
 				}
 				for (var d = 0; d < k; d++) {//给比特串的特定位置置 1,共置 k 次
-					var index = hash(((i - 1) * b + j - 1) + "" ,d) % m + 1;
-					while(flag[index] == true) index ++;
-					if(index < m) {
+					var index = hash(((i - 1) * b + j - 1) + "", d) % m + 1;
+					while (flag[index] == true) index++;
+					if (index < m) { //防止越界！！！！fuck it
 						V[index] = 1;
 						flag[index] = true;
 					}
