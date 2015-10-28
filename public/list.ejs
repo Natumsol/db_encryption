@@ -1,0 +1,9 @@
+<table class="table table-bordered">
+  <tr><td colspan="2">耗时：<%= time %> ms</td></tr>
+<% for(var i=0; i<list.length; i++) {%>
+  <tr > 
+  <td class="text-center"> <%= i + 1 %></td>  
+  <td class="list-item"><%= list[i].text %></td>
+  </tr>
+<% } %>
+</table>
