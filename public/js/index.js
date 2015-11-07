@@ -1,36 +1,38 @@
-$(function(){
-	$("#search1").click(function () {
-	$.ajax({
-		url: "/search1",
-		type: "post",
-		dataType: "json",
-		data: {
-			keyword: $("#keyword1").val().trim()
-		},
-		success: function (data) {
-			// load a template file, then render it with data
-			new EJS({ url: '/list.ejs' }).update('result1', data);
-             var chart = $('#charts').highcharts();
-            chart.series[0].addPoint(data.time);
-		}
-	});
-});
+$(function () {
+    $("#search1").click(function () {
+        $.ajax({
+            url: "/search1",
+            type: "post",
+            dataType: "json",
+            data: {
+                keyword: $("#keyword1").val().trim()
+            },
+            success: function (data) {
+                // load a template file, then render it with data
+                new EJS({ url: '/list.ejs' }).update('result1', data);
+                var chart = $('#charts').highcharts();
+                chart.series[0].addPoint(data.time);
+            }
+        });
+    });
 
-$("#search2").click(function () {
-	$.ajax({
-		url: "/search1",
-		type: "post",
-		dataType: "json",
-		data: {
-			keyword: $("#keyword2").val().trim()
-		},
-		success: function (data) {
-			// load a template file, then render it with data
-			new EJS({ url: '/list.ejs' }).update('result2', data)
-		}
-	});
-});
-$('#charts').highcharts({
+    $("#search2").click(function () {
+        $.ajax({
+            url: "/search1",
+            type: "post",
+            dataType: "json",
+            data: {
+                keyword: $("#keyword2").val().trim()
+            },
+            success: function (data) {
+                // load a template file, then render it with data
+                new EJS({ url: '/list.ejs' }).update('result2', data)
+                var chart = $('#charts').highcharts();
+                chart.series[1].addPoint(data.time);
+            }
+        });
+    });
+    $('#charts').highcharts({
         title: {
             text: "字符串查询性能对比图",
             x: -20 //center
@@ -40,8 +42,7 @@ $('#charts').highcharts({
             x: -20
         },
         xAxis: {
-            categories: ['1', '2', '3', '4', '5', '6',
-                '7', '8', '9', '10', '11', '12']
+            categories: [1,]
         },
         yAxis: {
             title: {
@@ -54,7 +55,7 @@ $('#charts').highcharts({
             }]
         },
         tooltip: {
-            valueSuffix: '°C'
+            valueSuffix: 'ms'
         },
         legend: {
             layout: 'vertical',
@@ -63,12 +64,12 @@ $('#charts').highcharts({
             borderWidth: 0
         },
         series: [{
-            name: '二次查询',
+            name: '密文查询',
             data: []
         }, {
-            name: '全文查询',
-            data: []
-        }]
+                name: '明文查询',
+                data: []
+            }]
     });
 });
 

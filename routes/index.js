@@ -4,6 +4,7 @@ var core = require("../core/core.js");
 var mysql = require('mysql');
 var bignum = require('bignum');
 var AES = require("crypto-js/aes");
+var CryptoJS = require("crypto-js");
 var count = 0;
 var k = 10;
 var m = 3307; // m = k * n / ln2,且m为素数
@@ -24,7 +25,7 @@ router.get('/', function (req, res, next) {
 router.post('/search1', function (req, res, next) {
   var keyword = req.body.keyword.trim();
   var isHead = false, isTail = false;
-  if (/^%.*[^%]$/.test(keyword)) isHead = true;
+  if (/^%.*[^%]$/.test(keyword)) isTail = true;
   if ((/^[^%].*%$/.test(keyword))) isHead = true;
   keyword = keyword.replace(/%/g, "");
   pool.getConnection(function (err, connection) {
@@ -45,11 +46,7 @@ router.post('/search1', function (req, res, next) {
     connection.query(sql, function (err, rows) {
       var end = (new Date()).getTime();
       var time = end - start;
-      for(var i = 0 ; i < rows.length; i ++) {
-        rows[i].crypt_text =  rows[i].crypt_text.toString('hex');
-        console.log(AES.decrypt(rows[i].crypt_text, "stay foolish") + "");
-      }
-      res.json({ list: rows,time:time });
+      res.json({ list: rows, time: time });
     });
 
     connection.release();// 释放链接
@@ -58,17 +55,14 @@ router.post('/search1', function (req, res, next) {
 
 router.post('/search2', function (req, res, next) {
   var keyword = req.body.keyword.trim();
-  
+
   pool.getConnection(function (err, connection) {
     var sql = "select crypt_text,text from novel where text like " + keyword;
     var start = (new Date()).getTime();
     connection.query(sql, function (err, rows) {
       var end = (new Date()).getTime();
       var time = end - start;
-      for(var i = 0 ; i < rows.length; i ++) {
-        rows[i].crypt_text =  rows[i].crypt_text.toString('hex');
-      }
-      res.json({ list: rows,time:time });
+      res.json({ list: rows, time: time });
     });
     connection.release();// 释放链接
   });

@@ -6,4 +6,7 @@
   <td class="list-item"><%= list[i].text %></td>
   </tr>
 <% } %>
+<% if(list.length == 0) {%>
+  <tr><td colspan="2">没有匹配结果！</td></tr>
+<% } %>
 </table>
